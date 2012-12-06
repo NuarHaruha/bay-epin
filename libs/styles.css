@@ -1,0 +1,61 @@
+#icon-settings{
+    background: url('../img/settings-32.png') no-repeat 0% 0%;
+}
+
+#icon-ticket{
+    background: url('../img/ticket-32.png') no-repeat 0% 0%;
+}
+
+.group-settings label{
+    clear:left;
+    display:block;
+    float:left;
+    width: 150px;
+    text-align: right;
+    padding-right:1em;
+}
+
+.group-submit{
+    clear:both;
+    text-align: right;
+    padding-right: 0.5em;
+}
+
+.text-right{
+    text-align: right !important
+}
+
+.text-left{
+    text-align: left !important
+}
+
+.db{
+    display:block
+}
+
+.dn{
+    display:none;
+}
+
+.muted{
+    color:silver
+}
+
+/** authpin_summary metabox */
+.post-authpin .inside{
+    padding:0px; margin:0px !important;
+}
+
+.post-authpin .inside table.widefat tbody th{
+background-color: #F1F1F1;
+background-image: -ms-linear-gradient(top,#F9F9F9,#ECECEC);
+background-image: -moz-linear-gradient(top,#F9F9F9,#ECECEC);
+background-image: -o-linear-gradient(top,#F9F9F9,#ECECEC);
+background-image: -webkit-gradient(linear,left top,left bottom,from(#F9F9F9),to(#ECECEC));
+background-image: -webkit-linear-gradient(top,#F9F9F9,#ECECEC);
+background-image: linear-gradient(top,#F9F9F9,#ECECEC);    
+}
+
+.post-authpin .form-table{
+    margin-top: 0pt;
+}
