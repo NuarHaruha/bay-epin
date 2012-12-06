@@ -1,4 +1,80 @@
 <?php
+/**
+ * pin functions
+ * @author Nuarharuha
+ * @version 0.1
+ */
+
+function product_total_pin($pid = false, $uid = false){
+    echo get_product_total_pin($pid, $uid);
+}
+
+function get_product_total_pin($pid = false, $uid = false){
+    $activated = count_product_activated_pin($pid, $uid);
+    $reserved  = count_product_reserved_pin($pid, $uid);
+
+    return $reserved+$activated;
+}
+
+function product_activated_pin($pid = false, $uid = false){
+    echo count_product_activated_pin($pid, $uid);
+}
+
+function product_reserved_pin($pid = false, $uid = false){
+    echo count_product_reserved_pin($pid, $uid);
+}
+
+/**
+ * get total product activated pin
+ */
+function count_product_activated_pin($pid = false, $uid = false){
+    return count_product_pin_type(PINTYPE::STATUS_ACTIVATED, $pid, $uid);
+}
+
+/**
+ * get total product reserved pin
+ */
+function count_product_reserved_pin($pid = false, $uid = false){
+    return count_product_pin_type(PINTYPE::STATUS_RESERVED, $pid, $uid);
+}
+
+/**
+ * get total product pin base on status
+ *
+ */
+function count_product_pin_type($status=PINTYPE::STATUS_RESERVED, $pid = false, $uid = false){
+    global $wpdb, $post, $current_user;
+
+    $pid = ($pid == false ) ? $post->ID : $pid;
+    $uid = ($uid == false ) ? $current_user->ID : $uid;
+
+    $db = PINTYPE::DB(PINTYPE::DB_PRIMARY);
+    $db_stockist = PINTYPE::DB(PINTYPE::DB_PIN_STOCKIST);
+
+    $sql = "SELECT COUNT(p.pin_id) FROM $db p JOIN $db_stockist s ON p.pin_id=s.pin_id WHERE p.status=%s AND s.stockist_id=%d AND p.product_id=%d";
+
+    $query = $wpdb->prepare($sql, $status, $uid , $pid);
+
+    return $wpdb->get_var($query);
+}
+
+/**
+ * get all user reserved pin
+ *
+ * @params int $uid user id
+ * @params int $pid product id (custom post type id)
+ */
+function get_reserved_pin($uid){
+    global $wpdb;
+
+    $db = PINTYPE::DB(PINTYPE::DB_PIN_STOCKIST);
+
+    $sql = "SELECT * FROM $db WHERE `status`=%s AND `stockist_id`=%d";
+
+    $query = $wpdb->prepare($sql, PINTYPE::STATUS_RESERVED, $uid);
+
+    return $wpdb->get_results($query);
+}
 
 function get_pin($product_id, $do_count = false){
     global $wpdb;
