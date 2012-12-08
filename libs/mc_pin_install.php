@@ -4,7 +4,7 @@
  * setup our database, this function should be
  * run on plugin active
  * 
- * @author  nuarharuha
+ * @author  Nuarharuha <nhnoah+bay-isra@gmail.com>
  * @since   1.2
  * @return  void
  */	

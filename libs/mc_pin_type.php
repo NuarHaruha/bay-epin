@@ -5,8 +5,8 @@
  * @package     isralife
  * @category    epin
  * 
- * @author      Nuarharuha 
- * @copyright   Copyright (C) 2012, Nuarharuha, MDAG Consultancy
+ * @author      Nuarharuha <nhnoah+bay-isra@gmail.com> 
+ * @copyright   Copyright (C) 2012, Nuarharuha <nhnoah+bay-isra@gmail.com>, MDAG Consultancy
  * @license     http://mdag.mit-license.org/ MIT License
  * @filesource  http://code.mdag.my/baydura_isralife/src
  * @version     0.1
@@ -89,7 +89,7 @@
     
     /**
      * @uses $wpdb wp database object
-     * @author Nuarharuha
+     * @author Nuarharuha <nhnoah+bay-isra@gmail.com>
      * @since 0.1
      * 
      * @param string $name const of PINTYPE::DB_{$}
