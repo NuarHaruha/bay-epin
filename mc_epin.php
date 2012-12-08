@@ -435,12 +435,14 @@ class E_pin
                     
                     /** primary sql insert */
                     $pin_id = $this->insert_pin($meta);
-                    
+
+                    $this->add_bonus_pv($req->uid, $meta['product_id'],$meta['invoice_id']);
+
                     if ($pin_id){                   
                         
                         /** prepare stockist pin insert data */
                         $stockist = array(
-                            'pin_id'      => (int) $wpdb->insert_id,
+                            'pin_id'      => (int) $pin_id,
                             'stockist_id' => (int) $req->uid,
                             'status'      => PINTYPE::STATUS_RESERVED,                        
                         );
@@ -457,9 +459,17 @@ class E_pin
             exit();
              
         }
-        
+    }
 
-    }    
+    public function add_bonus_pv($uid, $pid, $invoice_id)
+    {
+        $meta       = get_post_custom($pid);
+        $pv         = $meta[mc_products::MK_PV][0];
+        $sku        = $meta[mc_products::MK_SKU][0];
+        $invoice    = mc_get_invoice_id($invoice_id, $uid);
+
+        add_product_pv_bonus($uid, $sku, $invoice, $pv);
+    }
     
     public function update_invoice_status($status)
     {   global $wpdb;
@@ -517,7 +527,7 @@ class E_pin
         $stockist_pin = $wpdb->insert($db, $meta, $format);   
                         
         if ($stockist_pin){
-            do_action('insert_pin_stockist', $wpdb->insert_id, $meta, $_REQUEST);
+            do_action('insert_pin_stockist', $stockist_pin, $meta, $_REQUEST);
             return $stockist_pin;
         } else {
             return $false;
